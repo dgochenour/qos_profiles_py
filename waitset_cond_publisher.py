@@ -19,7 +19,7 @@ def publisher_main(domain_id, sample_count):
     participant = dds.DomainParticipant(domain_id, qos=qos_provider.participant_qos_from_profile("MyLibrary::MyProfile"))
 
     wssc_type = dds.QosProvider("waitset_cond.xml").type("wssc_lib", "Foo")
-    topic = dds.DynamicData.Topic(participant, "Example Foo", wssc_type)
+    topic = dds.DynamicData.Topic(participant, "Example Topic", wssc_type)
     writer = dds.DynamicData.DataWriter(dds.Publisher(participant), topic, qos_provider.datawriter_qos_from_profile("MyLibrary::MyProfile"))
 
     sample = dds.DynamicData(wssc_type)

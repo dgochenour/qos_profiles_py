@@ -42,7 +42,7 @@ def subscriber_main(domain_id, sample_count):
     participant = dds.DomainParticipant(domain_id, qos=qos_provider.participant_qos_from_profile("MyLibrary::MyProfile"))
 
     wsqc_type = dds.QosProvider("waitset_cond.xml").type("wssc_lib", "Foo")
-    topic = dds.DynamicData.Topic(participant, "Example Foo", wsqc_type)
+    topic = dds.DynamicData.Topic(participant, "Example Topic", wsqc_type)
     reader = dds.DynamicData.DataReader(dds.Subscriber(participant), topic, qos_provider.datareader_qos_from_profile("MyLibrary::MyProfile"))
 
     # Get the StatusCondition associated with the reader and set the mask to get liveliness updates
