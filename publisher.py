@@ -12,26 +12,29 @@
 import rti.connextdds as dds
 import time
 import argparse
+import random
 
 
 def publisher_main(domain_id, sample_count):
     qos_provider = dds.QosProvider("./my_qos.xml")
     participant = dds.DomainParticipant(domain_id, qos=qos_provider.participant_qos_from_profile("MyLibrary::MyProfile"))
 
-    wssc_type = dds.QosProvider("waitset_cond.xml").type("wssc_lib", "Foo")
-    topic = dds.DynamicData.Topic(participant, "Example Topic", wssc_type)
+    my_type = dds.QosProvider("./my_types.xml").type("my_type_lib", "Pose")
+    topic = dds.DynamicData.Topic(participant, "Example Topic", my_type)
     writer = dds.DynamicData.DataWriter(dds.Publisher(participant), topic, qos_provider.datawriter_qos_from_profile("MyLibrary::MyProfile"))
 
-    sample = dds.DynamicData(wssc_type)
-
+    sample = dds.DynamicData(my_type)
+    sample["obj_id"] = 10 #arbitrary ID
     count = 0
     while (sample_count == 0) or (count < sample_count):
-        print("Writing Foo, count = {}".format(count))
-        sample["x"] = count
+        print("Writing Pose, count = {}".format(count))
+        sample["position.x"] = random.random()
+        sample["position.y"] = random.random()
+        sample["position.z"] = random.random()        
         writer.write(sample)
 
         count += 1
-        time.sleep(1)
+        time.sleep(0.1)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="http://community.rti.com/schema/6.1.1/rti_dds_qos_profiles.xsd"
+     version="6.1.1">
+    <type_library name="my_type_lib">
+        <struct name= "Point" nested="true">
+            <member name="x" type="float64"/>
+            <member name="y" type="float64"/>
+            <member name="z" type="float64"/>
+        </struct>
+        <struct name= "Quaternion" nested="true">
+            <member name="x" type="float64"/>
+            <member name="y" type="float64"/>
+            <member name="z" type="float64"/>
+            <member name="w" type="float64"/>
+        </struct>
+        <struct name= "Pose">
+            <member name="obj_id" type="int32" key="true"/>
+            <member name="position" type="nonBasic"  nonBasicTypeName= "Point"/>
+            <member name="orientation" type="nonBasic"  nonBasicTypeName= "Quaternion"/>
+        </struct>
+  </type_library>
+</dds>

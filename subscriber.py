@@ -27,7 +27,7 @@ def status_handler(reader):
         liveliness_status = reader.liveliness_changed_status
         print("INFO: Liveliness changed => active writers = {}".format(liveliness_status.alive_count))
     elif dds.StatusMask.SUBSCRIPTION_MATCHED in status_mask:
-        print("INFO: Subscription matches changed => total matches = {}".format(reader.subscription_matched_status.total_count))
+        print("INFO: Subscription matches changed => total matches = {}".format(reader.subscription_matched_status.current_count))
     
 
 # Handle incoming data with a ReadCondition
@@ -41,8 +41,8 @@ def subscriber_main(domain_id, sample_count):
     qos_provider = dds.QosProvider("./my_qos.xml")
     participant = dds.DomainParticipant(domain_id, qos=qos_provider.participant_qos_from_profile("MyLibrary::MyProfile"))
 
-    wsqc_type = dds.QosProvider("waitset_cond.xml").type("wssc_lib", "Foo")
-    topic = dds.DynamicData.Topic(participant, "Example Topic", wsqc_type)
+    my_type = dds.QosProvider("./my_types.xml").type("my_type_lib", "Pose")
+    topic = dds.DynamicData.Topic(participant, "Example Topic", my_type)
     reader = dds.DynamicData.DataReader(dds.Subscriber(participant), topic, qos_provider.datareader_qos_from_profile("MyLibrary::MyProfile"))
 
     # Get the StatusCondition associated with the reader and set the mask to get liveliness updates

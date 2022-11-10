@@ -8,6 +8,25 @@
 // inability to use the software.
 
 
-struct Foo {
-    short x;
+const string location_topic_name = "Object Location";
+
+@nested
+struct Point {
+    double x;
+    double y;
+    double z;
+};
+
+@nested
+struct Quaternion {
+    double x;
+    double y;
+    double z;
+    double w;
+};
+
+struct Pose {
+    @key long obj_id;
+    Point position;
+    Quaternion orientation;
 };
