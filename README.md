@@ -2,7 +2,7 @@
 
 ## Purpose of this example
 
-This repo contains a simple example demonstrating how to create DDS entities (DomainParticipants, DataReaders, etc.) with a specific QoS profile instead of relying on the "defaul" profile. This is considered best-practice for all DDS applications:
+This repo contains a simple example demonstrating how to create DDS entities (DomainParticipants, DataReaders, etc.) with a specific QoS profile instead of relying on the "default" profile. This is considered best-practice for all DDS applications:
 - It is easy to understand the intent of the code from simple inspection.
 - "Surprises" caused by other parties chaning which QoS profile is default are eliminated-- the code no longer cares which profile is the default and instead explicitly calls one out. 
 
